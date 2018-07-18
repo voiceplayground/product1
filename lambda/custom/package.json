@@ -1,0 +1,13 @@
+{
+  "name": "product1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "ask-sdk-core": "^2.0.0",
+    "ask-sdk-model": "^1.0.0"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": ""
+}

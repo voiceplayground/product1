@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+    
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 7
+
+Resources:
+  AlexaSampleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs8.10
+      CodeUri: ./lambda/custom/
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        Alexa:
+          Type: AlexaSkill
+
+Outputs:
+  AlexaSampleFunctionArn:
+    Value: !GetAtt AlexaSampleFunction.Arn
+    Export: {
+      Name: !Sub '${AWS::StackName}:AlexaSampleFunction:Arn'
+      }
