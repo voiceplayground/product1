@@ -105,7 +105,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.231993812576.1284431682572"
+                                "elicitation": "Elicit.Slot.GetPartAccountDetails.PartAge"
                             }
                         },
                         {
@@ -114,7 +114,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.231993812576.140223714658"
+                                "elicitation": "Elicit.Slot.GetPartAccountDetails.CurrentBalance"
                             }
                         },
                         {
@@ -123,7 +123,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.231993812576.41944448698"
+                                "elicitation": "Elicit.Slot.GetPartAccountDetails.SavingsPerYear"
                             }
                         },
                         {
@@ -132,7 +132,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.231993812576.697231486495"
+                                "elicitation": "Elicit.Slot.GetPartAccountDetails.DesiredIncome"
                             }
                         }
                     ]
@@ -141,7 +141,7 @@
         },
         "prompts": [
             {
-                "id": "Elicit.Slot.231993812576.1284431682572",
+                "id": "Elicit.Slot.GetPartAccountDetails.PartAge",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -150,7 +150,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.231993812576.140223714658",
+                "id": "Elicit.Slot.GetPartAccountDetails.CurrentBalance",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -159,7 +159,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.231993812576.41944448698",
+                "id": "Elicit.Slot.GetPartAccountDetails.SavingsPerYear",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -168,7 +168,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.231993812576.697231486495",
+                "id": "Elicit.Slot.GetPartAccountDetails.DesiredIncome",
                 "variations": [
                     {
                         "type": "PlainText",
