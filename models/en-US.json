@@ -1,1 +1,181 @@
-
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "retirement evaluation",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "retirement_readiness",
+                    "slots": [
+                        {
+                            "name": "age",
+                            "type": "AMAZON.Person"
+                        },
+                        {
+                            "name": "current_balance",
+                            "type": "AMAZON.FinancialService"
+                        },
+                        {
+                            "name": "savings_per_year",
+                            "type": "AMAZON.FinancialService"
+                        },
+                        {
+                            "name": "desired_income",
+                            "type": "AMAZON.FinancialService"
+                        }
+                    ],
+                    "samples": [
+                        "monthly income when I retire",
+                        "retirement readiness",
+                        "am I ready for retirement"
+                    ]
+                },
+                {
+                    "name": "AMAZON.MoreIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateSettingsIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NextIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PageUpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PageDownIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PreviousIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollRightIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollDownIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollLeftIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollUpIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "retirement_readiness",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "age",
+                            "type": "AMAZON.Person",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.231993812576.1284431682572"
+                            }
+                        },
+                        {
+                            "name": "current_balance",
+                            "type": "AMAZON.FinancialService",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.231993812576.140223714658"
+                            }
+                        },
+                        {
+                            "name": "savings_per_year",
+                            "type": "AMAZON.FinancialService",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.231993812576.41944448698"
+                            }
+                        },
+                        {
+                            "name": "desired_income",
+                            "type": "AMAZON.FinancialService",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.231993812576.697231486495"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.231993812576.1284431682572",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what is your age"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.231993812576.140223714658",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is your current retirement portfolio balance"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.231993812576.41944448698",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How much do you intend to invest per year"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.231993812576.697231486495",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How much do you expect to need per month in retirement"
+                    }
+                ]
+            }
+        ]
+    }
+}
