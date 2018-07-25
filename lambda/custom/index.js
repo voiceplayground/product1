@@ -5,7 +5,9 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk-core');
-
+const docClient = new AWS.DynamoDB.DocumentClient({ region: "us-east-1"});
+const dynamodbstreams = new AWS.DynamoDBStreams({apiVersion: "2012-08-10"});
+const config = require("config");
 /* INTENT HANDLERS */
 
 const LaunchRequestHandler = {
@@ -278,6 +280,10 @@ function getSlotValues(filledSlots) {
   }, this);
 
   return slotValues;
+}
+
+function getUserIDAndSaveIt(event)  {
+    console.log(event.session.user.userId);
 }
 
 exports.handler = skillBuilder
