@@ -107,7 +107,7 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can say hello to me!';
+    const speechText = 'I calculate retirement!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -220,11 +220,12 @@ function getGap(currentBalance, investmentProfile, age, savingsPerYear, desiredI
             rate = .04
     }
 
-    fv = (currentBalance * ((1 + rate)**periods)) + (savingsPerYear*((((1+rate)*periods)-1)/rate))
+    fv = (currentBalance * ((1 + rate)**periods)) + (savingsPerYear*(((((1+rate)*.97)periods)-1)/rate))
 
+    desiredIncome = desiredIncome * (1.03**periods) // inflation
     gap = desiredIncome - fv
 
-    return Math.round(gap*100)/100
+    return Math.round(gap*100)/100 
 }
 
 exports.handler = skillBuilder
