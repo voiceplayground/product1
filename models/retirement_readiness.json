@@ -1,12 +1,8 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "retirement evaluation",
+            "invocationName": "retirement readiness",
             "intents": [
-                {
-                    "name": "AMAZON.FallbackIntent",
-                    "samples": []
-                },
                 {
                     "name": "AMAZON.CancelIntent",
                     "samples": []
@@ -20,23 +16,27 @@
                     "samples": []
                 },
                 {
-                    "name": "retirement_readiness",
+                    "name": "RetirementReadinessIntent",
                     "slots": [
                         {
                             "name": "age",
                             "type": "AMAZON.Person"
                         },
                         {
-                            "name": "current_balance",
+                            "name": "currentBalance",
                             "type": "AMAZON.FinancialService"
                         },
                         {
-                            "name": "savings_per_year",
+                            "name": "savingsPerYear",
                             "type": "AMAZON.FinancialService"
                         },
                         {
-                            "name": "desired_income",
+                            "name": "desiredIncome",
                             "type": "AMAZON.FinancialService"
+                        },
+                        {
+                            "name": "investmentProfile",
+                            "type": "INVESTMENT_PROFILE"
                         }
                     ],
                     "samples": [
@@ -44,58 +44,35 @@
                         "retirement readiness",
                         "am I ready for retirement"
                     ]
-                },
-                {
-                    "name": "AMAZON.MoreIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateSettingsIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NextIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.PageUpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.PageDownIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.PreviousIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.ScrollRightIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.ScrollDownIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.ScrollLeftIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.ScrollUpIntent",
-                    "samples": []
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "INVESTMENT_PROFILE",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "conservative"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "balanced"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "aggressive"
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         "dialog": {
             "intents": [
                 {
-                    "name": "retirement_readiness",
+                    "name": "RetirementReadinessIntent",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
@@ -105,34 +82,43 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.GetPartAccountDetails.PartAge"
+                                "elicitation": "Elicit.Slot.1252964469481.545636046170"
                             }
                         },
                         {
-                            "name": "current_balance",
+                            "name": "currentBalance",
                             "type": "AMAZON.FinancialService",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.GetPartAccountDetails.CurrentBalance"
+                                "elicitation": "Elicit.Slot.1276549556473.242111261851"
                             }
                         },
                         {
-                            "name": "savings_per_year",
+                            "name": "savingsPerYear",
                             "type": "AMAZON.FinancialService",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.GetPartAccountDetails.SavingsPerYear"
+                                "elicitation": "Elicit.Slot.1281100620866.41569422329"
                             }
                         },
                         {
-                            "name": "desired_income",
+                            "name": "desiredIncome",
                             "type": "AMAZON.FinancialService",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.GetPartAccountDetails.DesiredIncome"
+                                "elicitation": "Elicit.Slot.1205327204391.723969311733"
+                            }
+                        },
+                        {
+                            "name": "investmentProfile",
+                            "type": "INVESTMENT_PROFILE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1281100620866.965817591359"
                             }
                         }
                     ]
@@ -141,38 +127,47 @@
         },
         "prompts": [
             {
-                "id": "Elicit.Slot.GetPartAccountDetails.PartAge",
+                "id": "Elicit.Slot.1281100620866.965817591359",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "what is your age"
+                        "value": "Would you describe your investment profile as aggressive, balanced, or conservative?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.GetPartAccountDetails.CurrentBalance",
+                "id": "Elicit.Slot.1281100620866.41569422329",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "What is your current retirement portfolio balance"
+                        "value": "How much do you intend to invest per year?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.GetPartAccountDetails.SavingsPerYear",
+                "id": "Elicit.Slot.1276549556473.242111261851",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "How much do you intend to invest per year"
+                        "value": "What is your current retirement portfolio balance?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.GetPartAccountDetails.DesiredIncome",
+                "id": "Elicit.Slot.1252964469481.545636046170",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "How much do you expect to need per month in retirement"
+                        "value": "What is your age?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1205327204391.723969311733",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is your desired monthly retirement income before inflation?"
                     }
                 ]
             }
