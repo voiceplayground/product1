@@ -19,24 +19,41 @@
                     "name": "RetirementReadinessIntent",
                     "slots": [
                         {
-                            "name": "age",
-                            "type": "AMAZON.Person"
+                            "name": "dateOfBirth",
+                            "type": "AMAZON.DATE",
+                            "samples": [
+                                "I was born {dateOfBirth}",
+                                "My date of birth is {dateOfBirth}"
+                            ]
                         },
                         {
                             "name": "currentBalance",
-                            "type": "AMAZON.FinancialService"
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "My current account balance is {currentBalance}"
+                            ]
                         },
                         {
                             "name": "savingsPerYear",
-                            "type": "AMAZON.FinancialService"
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "I invest {savingsPerYear} per year. "
+                            ]
                         },
                         {
                             "name": "desiredIncome",
-                            "type": "AMAZON.FinancialService"
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "My desired monthly income before inflation is {desiredIncome}"
+                            ]
                         },
                         {
                             "name": "investmentProfile",
-                            "type": "INVESTMENT_PROFILE"
+                            "type": "investmentProfileType",
+                            "samples": [
+                                "My investment profile is {investmentProfile}",
+                                "{investmentProfile}"
+                            ]
                         }
                     ],
                     "samples": [
@@ -48,7 +65,7 @@
             ],
             "types": [
                 {
-                    "name": "INVESTMENT_PROFILE",
+                    "name": "investmentProfileType",
                     "values": [
                         {
                             "name": {
@@ -77,48 +94,48 @@
                     "prompts": {},
                     "slots": [
                         {
-                            "name": "age",
-                            "type": "AMAZON.Person",
+                            "name": "dateOfBirth",
+                            "type": "AMAZON.DATE",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1252964469481.545636046170"
+                                "elicitation": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-dateOfBirth"
                             }
                         },
                         {
                             "name": "currentBalance",
-                            "type": "AMAZON.FinancialService",
+                            "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1276549556473.242111261851"
+                                "elicitation": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-currentBalance"
                             }
                         },
                         {
                             "name": "savingsPerYear",
-                            "type": "AMAZON.FinancialService",
+                            "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1281100620866.41569422329"
+                                "elicitation": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-savingsPerYear"
                             }
                         },
                         {
                             "name": "desiredIncome",
-                            "type": "AMAZON.FinancialService",
+                            "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1205327204391.723969311733"
+                                "elicitation": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-desiredIncome"
                             }
                         },
                         {
                             "name": "investmentProfile",
-                            "type": "INVESTMENT_PROFILE",
+                            "type": "investmentProfileType",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1281100620866.965817591359"
+                                "elicitation": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-investmentProfile"
                             }
                         }
                     ]
@@ -127,7 +144,7 @@
         },
         "prompts": [
             {
-                "id": "Elicit.Slot.1281100620866.965817591359",
+                "id": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-investmentProfile",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -136,34 +153,34 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.1281100620866.41569422329",
+                "id": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-savingsPerYear",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "How much do you intend to invest per year?"
+                        "value": "How much do you invest per year?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.1276549556473.242111261851",
+                "id": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-currentBalance",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "What is your current retirement portfolio balance?"
+                        "value": "What is your current account balance?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.1252964469481.545636046170",
+                "id": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-dateOfBirth",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "What is your age?"
+                        "value": "What is your date of birth ?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.1205327204391.723969311733",
+                "id": "Elicit.Intent-RetirementReadinessIntent.IntentSlot-desiredIncome",
                 "variations": [
                     {
                         "type": "PlainText",
