@@ -29,6 +29,8 @@ const InProgressIntent = {
             && request.dialogState !== 'COMPLETED';
     },
     handle(handlerInput) {
+        console.log('in InProgressIntent');
+
         const currentIntent = handlerInput.requestEnvelope.request.intent;
         let prompt = '';
 
@@ -91,16 +93,12 @@ const CompletedIntent = {
         const gap = getGap(slotValues.currentBalance.resolved, slotValues.investmentProfile.resolved, slotValues.dateOfBirth.resolved, slotValues.savingsPerYear.resolved, slotValues.desiredIncome.resolved);
 
         const speechOutput = (gap) => {
-            switch (gap) {
-                case gap < 0.9: {
-                    return `You have a deficit of ${gap} dollars. Consider contributing more to your retirement account.`;
-                }
-                case gap === 0.0: {
-                    return `Congratulations! You are on track.`;
-                }
-                case gap > 0.0: {
-                    return `Congratulations! You have a surplus of ${gap}.`;
-                }
+            if(gap < 0.0) {
+                return `You have a deficit of ${gap} dollars. Consider contributing more to your retirement account.`;
+            } else if(gap === 0.0) {
+                return `Congratulations! You are on track.`;
+            } else {
+                return `Congratulations! You have a surplus of ${gap} dollars.`;
             }
         };
 
@@ -219,8 +217,7 @@ function getSlotValues(filledSlots) {
     return slotValues;
 }
 
-const getGap = (dateOfBirth, currentBalance, savingsPerYear, desiredIncome, investmentProfile) => {
-
+const getGap = (currentBalance, investmentProfile, dateOfBirth, savingsPerYear, desiredIncome) => {
     const periods = 65 - dateOfBirth;
 
     const profiles = {
