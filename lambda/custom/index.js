@@ -7,6 +7,15 @@
 const Alexa = require('ask-sdk-core');
 const docClient = new AWS.DynamoDB.DocumentClient({ region: "us-east-1"});
 const dynamodbstreams = new AWS.DynamoDBStreams({apiVersion: "2012-08-10"});
+
+var AWS = require("aws-sdk");
+
+AWS.config.update({
+  region: "us-east-1",
+  endpoint: "http://localhost:8000"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
 const config = require("config");
 /* INTENT HANDLERS */
 
@@ -284,6 +293,17 @@ function getSlotValues(filledSlots) {
 
 function getUserIDAndSaveIt(event)  {
     console.log(event.session.user.userId);
+  
+  var params = {
+    TableName:UniqueIdentifier,
+    Item:{
+        "uniqueId": event.session.user.userId
+    }
+};
+   docClient.putItem(params, function(err, data) {
+   if (err) console.log(err, err.stack); // an error occurred
+   else     console.log(data);           // successful response
+ });
 }
 
 exports.handler = skillBuilder
