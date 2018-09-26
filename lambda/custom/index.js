@@ -11,7 +11,7 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Let\'s calculate your retirement readiness.';
+        const speechText = 'Do you want to calculate your retirement readiness?';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -30,7 +30,7 @@ const InProgressIntent = {
     },
     handle(handlerInput) {
         console.log('in InProgressIntent');
-
+        
         const currentIntent = handlerInput.requestEnvelope.request.intent;
         let prompt = '';
 
@@ -91,7 +91,7 @@ const CompletedIntent = {
         const slotValues = getSlotValues(filledSlots);
 
         const gap = getGap(slotValues.currentBalance.resolved, slotValues.investmentProfile.resolved, slotValues.dateOfBirth.resolved, slotValues.savingsPerYear.resolved, slotValues.desiredIncome.resolved);
-
+        
         const speechOutput = (gap) => {
             if(gap < 0.0) {
                 return `You have a deficit of ${gap} dollars. Consider contributing more to your retirement account.`;
@@ -114,7 +114,7 @@ const HelpIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speechText = 'Let\'s calculate your retirement readiness.';
+        const speechText = 'To calculate your retirement readiness, say "Retirement Readiness" and provide a few details about your goals. Do you want to calculate your retirement readiness?';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -135,7 +135,7 @@ const CancelAndStopIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Hello World', speechText)
+            //.withSimpleCard('Hello World', speechText)
             .getResponse();
     },
 };
