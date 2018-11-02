@@ -11,7 +11,7 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Let\'s calculate your retirement readiness.';
+        const speechText = 'To calculate retirement readiness, you will need your age, your current balance, the amount you would like to save, and the amount you would like to earn in retirement. Do you want to continue?';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -31,43 +31,24 @@ const InProgressIntent = {
     handle(handlerInput) {
         console.log('in InProgressIntent');
 
+        // check any filled slots for invalid values. If found, elicit that slot again
         const currentIntent = handlerInput.requestEnvelope.request.intent;
         let prompt = '';
 
         for (const slotName of Object.keys(handlerInput.requestEnvelope.request.intent.slots)) {
             const currentSlot = currentIntent.slots[slotName];
-            if (currentSlot.confirmationStatus !== 'CONFIRMED'
-                && currentSlot.resolutions
-                && currentSlot.resolutions.resolutionsPerAuthority[0]) {
-                if (currentSlot.resolutions.resolutionsPerAuthority[0].status.code === 'ER_SUCCESS_MATCH') {
-                    if (currentSlot.resolutions.resolutionsPerAuthority[0].values.length > 1) {
-                        prompt = 'Which would you like';
-                        const size = currentSlot.resolutions.resolutionsPerAuthority[0].values.length;
+            if ((currentSlot.value && currentSlot.value === '?') ||
+                (currentSlot.resolutions &&
+                currentSlot.resolutions.resolutionsPerAuthority &&
+                currentSlot.resolutions.resolutionsPerAuthority[0] &&
+                currentSlot.resolutions.resolutionsPerAuthority[0].status.code === 'ER_SUCCESS_NO_MATCH')) {
 
-                        currentSlot.resolutions.resolutionsPerAuthority[0].values
-                            .forEach((element, index) => {
-                                prompt += ` ${(index === size - 1) ? ' or' : ' '} ${element.value.name}`;
-                            });
-
-                        prompt += '?';
-
-                        return handlerInput.responseBuilder
-                            .speak(prompt)
-                            .reprompt(prompt)
-                            .addElicitSlotDirective(currentSlot.name)
-                            .getResponse();
-                    }
-                } else if (currentSlot.resolutions.resolutionsPerAuthority[0].status.code === 'ER_SUCCESS_NO_MATCH') {
-                    if (requiredSlots.indexOf(currentSlot.name) > -1) {
-                        prompt = `What ${currentSlot.name} are you looking for`;
-
-                        return handlerInput.responseBuilder
-                            .speak(prompt)
-                            .reprompt(prompt)
-                            .addElicitSlotDirective(currentSlot.name)
-                            .getResponse();
-                    }
-                }
+                prompt = "Sorry I didn't understand that. " + reprompts[currentSlot.name];
+                return handlerInput.responseBuilder
+                    .speak(prompt)
+                    .reprompt(prompt)
+                    .addElicitSlotDirective(currentSlot.name)
+                    .getResponse();
             }
         }
 
@@ -90,7 +71,7 @@ const CompletedIntent = {
 
         const slotValues = getSlotValues(filledSlots);
 
-        const gap = getGap(slotValues.currentBalance.resolved, slotValues.investmentProfile.resolved, slotValues.dateOfBirth.resolved, slotValues.savingsPerYear.resolved, slotValues.desiredIncome.resolved);
+        const gap = getGap(slotValues.currentBalance.resolved, slotValues.investmentProfile.resolved, slotValues.age.resolved, slotValues.savingsPerYear.resolved, slotValues.desiredIncome.resolved);
 
         const speechOutput = (gap) => {
             if(gap < 0.0) {
@@ -114,7 +95,7 @@ const HelpIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speechText = 'Let\'s calculate your retirement readiness.';
+        const speechText = 'To calculate your retirement readiness, say "Retirement Readiness" and provide a few details about your goals. Do you want to calculate your retirement readiness?';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -135,7 +116,7 @@ const CancelAndStopIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Hello World', speechText)
+            //.withSimpleCard('Hello World', speechText)
             .getResponse();
     },
 };
@@ -168,12 +149,21 @@ const ErrorHandler = {
 const skillBuilder = Alexa.SkillBuilders.custom();
 
 const requiredSlots = [
-    'dateOfBirth',
+    'age',
     'currentBalance',
     'savingsPerYear',
     'desiredIncome',
     'investmentProfile'
 ];
+
+// this is not good because the slot names are hard-coded; fix this in the future.
+const reprompts = {
+    'age': 'How old are you?',
+    'currentBalance': 'What is your current account balance?',
+    'savingsPerYear': 'How much do you invest per year?',
+    'desiredIncome': 'What is your desired monthly retirement income before inflation?',
+    'investmentProfile': 'Is your investment profile conservative, balanced, or aggressive?'
+};
 
 function getSlotValues(filledSlots) {
     const slotValues = {};
@@ -217,8 +207,8 @@ function getSlotValues(filledSlots) {
     return slotValues;
 }
 
-const getGap = (currentBalance, investmentProfile, dateOfBirth, savingsPerYear, desiredIncome) => {
-    const periods = 65 - dateOfBirth;
+const getGap = (currentBalance, investmentProfile, age, savingsPerYear, desiredIncome) => {
+    const periods = 65 - age;
 
     const profiles = {
         "aggressive": .07,
