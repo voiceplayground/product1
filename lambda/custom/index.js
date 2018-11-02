@@ -12,7 +12,6 @@ const LaunchRequestHandler = {
     },
     handle(handlerInput) {
         const speechText = 'To calculate retirement readiness, you will need your age, your current balance, the amount you would like to save, and the amount you would like to earn in retirement. Do you want to continue?';
-
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
